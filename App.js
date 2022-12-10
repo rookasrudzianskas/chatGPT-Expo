@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {useState} from "react";
 
 export default function App() {
@@ -15,6 +15,15 @@ export default function App() {
   return (
       <View className="flex-1 pt-16 px-5 bg-white space-y-7">
           <Text className="text-center text-xl font-semibold">Christmas Gift Generator 🎁</Text>
+
+          <>
+              <Text className="text-lg font-semibold text-left mt-5">For who is the gift?</Text>
+              <View className="flex-row">
+                  <Text onPress={() => setGender("man")} className={`${gender === 'man' ? "bg-teal-800 text-white font-semibold" : "bg-gray-200 text-gray-800 font-semibold"} mr-1 flex-1 text-center py-3`}>Man</Text>
+                  <Text onPress={() => setGender("woman")} className={`${gender === 'woman' ? "bg-teal-800 text-white font-semibold" : "bg-gray-200 text-gray-800 font-semibold"} ml-1 flex-1 text-center py-3`}>Woman</Text>
+              </View>
+          </>
+
           <>
               <Text className="text-lg font-semibold text-left mt-5">Age</Text>
               <TextInput
@@ -60,6 +69,10 @@ export default function App() {
                   onChangeText={setHobbies}
               />
           </>
+
+          <TouchableOpacity activeOpacity={0.7} className="bg-teal-800 rounded-md">
+                <Text className="text-white text-center py-3 rounded-md font-bold">Generate</Text>
+          </TouchableOpacity>
         <StatusBar style="auto" />
       </View>
   );
