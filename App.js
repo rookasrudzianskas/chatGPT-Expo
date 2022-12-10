@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Alert, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {useState} from "react";
+
+const API_URL = "https://rookas-chat-gpt.vercel.app/api";
 
 export default function App() {
     const [gender, setGender] = useState('man');
@@ -11,6 +13,29 @@ export default function App() {
     const [loading, setLoading] = useState(false);
 
     const [result, setResult] = useState('');
+
+    const onSubmit = async () => {
+        if (loading) return;
+        setLoading(true);
+        setResult('');
+
+        try {
+            const response = await fetch(`${API_URL}/generate-gifts`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ priceMin, priceMax, gender, age, hobbies })
+            });
+
+            const data = await response.json();
+            setResult(data.result);
+        } catch (e) {
+            Alert.alert("Couldn't generate ideas", e.message);
+        } finally {
+            setLoading(false);
+        }
+    }
 
   return (
       <View className="flex-1 pt-16 px-5 bg-white space-y-7">
@@ -70,7 +95,7 @@ export default function App() {
               />
           </>
 
-          <TouchableOpacity activeOpacity={0.7} className="bg-teal-800 rounded-md">
+          <TouchableOpacity onPress={onSubmit} activeOpacity={0.7} className="bg-teal-800 rounded-md">
                 <Text className="text-white text-center py-3 rounded-md font-bold">Generate</Text>
           </TouchableOpacity>
         <StatusBar style="auto" />
