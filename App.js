@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {useState} from "react";
 
 export default function App() {
@@ -13,8 +13,53 @@ export default function App() {
     const [result, setResult] = useState('');
 
   return (
-      <View className="flex-1 items-center justify-center bg-white">
-        <Text>Open up App.js to start working on your app!</Text>
+      <View className="flex-1 pt-16 px-5 bg-white space-y-7">
+          <Text className="text-center text-xl font-semibold">Christmas Gift Generator 🎁</Text>
+          <>
+              <Text className="text-lg font-semibold text-left mt-5">Age</Text>
+              <TextInput
+                  placeholder="Age"
+                  keyboardType="numeric"
+                  className="w-full border border-gray-300 text-lg rounded-md px-3 py-2 pb-5"
+                  value={age.toString()}
+                  onChangeText={(s) => setAge(Number.parseInt(s || '0'))}
+              />
+          </>
+
+          <>
+              <Text className="text-lg font-semibold text-left mt-5">Price from ($)</Text>
+              <TextInput
+                  className="w-full border border-gray-300 text-lg rounded-md px-3 py-2 pb-5"
+                  placeholder="Price from"
+                  keyboardType="numeric"
+                  style={styles.input}
+                  value={priceMin.toString()}
+                  onChangeText={(s) => setPriceMin(Number.parseInt(s || '0'))}
+              />
+          </>
+
+          <>
+              <Text className="text-lg font-semibold text-left mt-5">Price to ($)</Text>
+              <TextInput
+                  className="w-full border border-gray-300 text-lg rounded-md px-3 py-2 pb-5"
+                  placeholder="Price to"
+                  keyboardType="numeric"
+                  style={styles.input}
+                  value={priceMax.toString()}
+                  onChangeText={(s) => setPriceMax(Number.parseInt(s || '0'))}
+              />
+          </>
+
+          <>
+              <Text className="text-lg font-semibold text-left mt-5">Hobbies</Text>
+              <TextInput
+                  className="w-full border border-gray-300 text-lg rounded-md px-3 py-2 pb-5"
+                  placeholder="Hobbies"
+                  style={styles.input}
+                  value={hobbies}
+                  onChangeText={setHobbies}
+              />
+          </>
         <StatusBar style="auto" />
       </View>
   );
