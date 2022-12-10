@@ -20,7 +20,6 @@ export default function App() {
     const [priceMax, setPriceMax] = useState(100);
     const [hobbies, setHobbies] = useState('');
     const [loading, setLoading] = useState(false);
-
     const [result, setResult] = useState('');
 
     const onSubmit = async () => {
