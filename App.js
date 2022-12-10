@@ -1,5 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
-import {Alert, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {
+    ActivityIndicator,
+    Alert,
+    SafeAreaView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import {useState} from "react";
 
 const API_URL = "https://rookas-chat-gpt.vercel.app/api";
@@ -35,6 +44,33 @@ export default function App() {
         } finally {
             setLoading(false);
         }
+    }
+
+    const onTryAgain = () => {
+        onSubmit();
+    }
+
+    if(loading) {
+        return (
+            <View className="h-screen items-center justify-center">
+                <ActivityIndicator />
+                <Text className="font-semibold mt-5 text-lg">Gift Ideas are on the way 🎁</Text>
+            </View>
+        );
+    }
+
+    if(result) {
+        return (
+            <SafeAreaView className="text-center px-10 pt-24">
+                <Text className="text-center pt-3 text-lg font-semibold">
+                    Here are some great Christmas gift ideas 🎁 💡
+                </Text>
+                <Text className="text-gray-800 tracking-wide px-5">{result}</Text>
+                <TouchableOpacity onPress={onTryAgain} activeOpacity={0.7} className="bg-teal-800 rounded-md mx-5 mt-10">
+                    <Text className="text-white text-center py-3 rounded-md font-bold">Generate</Text>
+                </TouchableOpacity>
+            </SafeAreaView>
+        )
     }
 
   return (
